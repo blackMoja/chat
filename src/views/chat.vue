@@ -2,17 +2,21 @@
 	<div class="container">
 		<div class="contents"></div>
 		<div class="bottom-container">
-			<div class="chat-etc-box"><a href="#" @click.prevent>버튼</a></div>
+			<div class="chat-etc-box">
+				<a href="#" @click.prevent>버튼</a>
+			</div>
 			<div class="chat-textarea-box">
 				<!-- <textarea class="chat-textarea shadow" ref="chatBox" tabindex="0" :style="chatBoxStyle" :value="msg" @input="typingMessage"></textarea> -->
 				<textarea></textarea>
 			</div>
-			<div class="chat-btn-box"><a href="#" @click.prevent>전송</a></div>
+			<div class="chat-btn-box">
+				<a href="#" @click.prevent>전송</a>
+			</div>
 		</div>
 	</div>
 </template>
 
-<script>
+<script type="text/javascript">
 export default {
 	name: 'chat',
 	components: {},
