@@ -58,15 +58,16 @@ export default {
 }
 
 .contents {
-	height: calc(100% - 80px);
+	height: calc(100% - 35px);
 	width: 100%;
 	background-color: #000;
 }
 .bottom-container {
-	height: 80px;
+	height: 35px;
 	width: 100%;
 	background-color: #fff;
 	text-align: center;
+	line-height: 2.3;
 }
 .chat-etc-box {
 	width: 15%;
