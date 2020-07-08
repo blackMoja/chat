@@ -11,7 +11,7 @@
 				</ResizableTextarea>
 			</div>
 			<div class="chat-btn-box">
-				<a href="#" @click.prevent>전송</a>
+				<a href="#" class="chat-btn" @click.prevent>&#8629;</a>
 			</div>
 		</div>
 	</div>
@@ -58,16 +58,15 @@ export default {
 }
 
 .contents {
-	height: calc(100% - 35px);
+	height: calc(100% - 52px);
 	width: 100%;
-	background-color: #000;
 }
 .bottom-container {
-	height: 35px;
+	height: 52px;
 	width: 100%;
 	background-color: #fff;
 	text-align: center;
-	line-height: 2.3;
+	line-height: 3.3;
 }
 .chat-etc-box {
 	width: 15%;
@@ -80,11 +79,18 @@ export default {
 .chat-textarea {
 	width: 100%;
 	height: 25px;
-	font-size: 16px;
+	padding: 8px 8px;
+	font-size: 15px;
+	border: 1px solid #ababab;
+	border-radius: 15px;
 	max-height: 80px;
 }
 .chat-btn-box {
 	width: 15%;
 	float: right;
+}
+
+.chat-btn {
+	line-height: 3.5;
 }
 </style>
