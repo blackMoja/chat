@@ -5,9 +5,10 @@
 			<div class="chat-etc-box">
 				<a href="#" @click.prevent>버튼</a>
 			</div>
-			<div class="chat-textarea-box">
-				<!-- <textarea class="chat-textarea shadow" ref="chatBox" tabindex="0" :style="chatBoxStyle" :value="msg" @input="typingMessage"></textarea> -->
-				<textarea></textarea>
+			<div class="chat-textarea-box" id="chatBox">
+				<ResizableTextarea>
+					<textarea class="chat-textarea" ref="chatBox" rows="1" :value="msg" @input="typingMessage"></textarea>
+				</ResizableTextarea>
 			</div>
 			<div class="chat-btn-box">
 				<a href="#" @click.prevent>전송</a>
@@ -17,45 +18,33 @@
 </template>
 
 <script type="text/javascript">
+import ResizableTextarea from '@/assets/js/resize-textarea.js';
 export default {
 	name: 'chat',
-	components: {},
+	components: {
+		ResizableTextarea
+	},
 	filters: {},
 	mixins: [],
 	extends: {},
 	props: {},
 	data() {
 		return {
-			msg: '',
-			chatBoxHeight: 0
+			msg: ''
 		};
 	},
-	computed: {
-		chatBoxStyle() {
-			return { 'min-height': this.chatBoxHeight };
-		}
-	},
-	watch: {
-		msg() {
-			this.resize();
-		}
-	},
+	computed: {},
+	watch: {},
 	methods: {
 		typingMessage(e) {
 			this.msg = e.target.value;
-		},
-		resize() {
-			this.chatBoxHeight = `${this.$refs.chatBox.scrollHeight}px`;
-			console.log(this.chatBoxHeight);
 		}
 	},
 
 	beforeCreate() {},
 	created() {},
 	beforeMount() {},
-	mounted() {
-		this.resize();
-	},
+	mounted() {},
 	beforeUpdate() {},
 	updated() {},
 	beforeDestroy() {},
@@ -64,9 +53,9 @@ export default {
 </script>
 
 <style scoped>
-/* * {
+* {
 	box-sizing: border-box;
-} */
+}
 
 .contents {
 	height: calc(100% - 80px);
@@ -91,21 +80,6 @@ export default {
 	width: 100%;
 	height: 25px;
 	font-size: 15px;
-}
-.chat-textarea > textarea {
-	box-sizing: border-box;
-	padding: 8px;
-	border: 1px solid #aeaeae;
-	resize: none;
-	overflow: hidden;
-	font-size: 16px;
-	height: 0;
-}
-.chat-textarea .shadow {
-	max-height: 0;
-	pointer-events: none;
-	opacity: 0;
-	margin: 0;
 }
 .chat-btn-box {
 	width: 15%;
