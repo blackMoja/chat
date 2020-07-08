@@ -79,7 +79,8 @@ export default {
 .chat-textarea {
 	width: 100%;
 	height: 25px;
-	font-size: 15px;
+	font-size: 16px;
+	max-height: 80px;
 }
 .chat-btn-box {
 	width: 15%;
