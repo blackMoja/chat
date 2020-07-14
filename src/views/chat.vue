@@ -17,6 +17,118 @@
 				</p>
 				<p class="contents-msg receive receive-msg">하위염</p>
 			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
+			<!-- send -->
+			<div class="contents-line send">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="send send-member">임묵창</span>
+				</p>
+				<p class="contents-msg send send-msg">하위염</p>
+			</div>
+			<!-- receive -->
+			<div class="contents-line receive">
+				<p class="contents-member">
+					<!-- <img src="" /> -->
+					<span class="receive receive-member">임묵창</span>
+				</p>
+				<p class="contents-msg receive receive-msg">하위염</p>
+			</div>
 		</div>
 		<div class="bottom-container">
 			<div class="chat-textarea-box" id="chatBox">
@@ -75,6 +187,8 @@ export default {
 	height: calc(100% - 52px);
 	width: 100%;
 	padding: 10px;
+	padding-top: 40px;
+	overflow: scroll;
 }
 .contents-line {
 	width: 100%;
@@ -119,6 +233,11 @@ export default {
 	background-color: #fff;
 	text-align: center;
 	line-height: 3.3;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 9;
 }
 .chat-etc-box {
 	width: 15%;
