@@ -130,7 +130,7 @@
 				<p class="contents-msg receive receive-msg">하위염</p>
 			</div>
 		</div>
-		<div class="bottom-container">
+		<div class="bottom-container" :style="setBottomStyle">
 			<div class="chat-textarea-box" id="chatBox">
 				<ResizableTextarea>
 					<textarea class="chat-textarea" ref="chatBox" rows="1" :value="msg" @input="typingMessage"></textarea>
@@ -156,10 +156,16 @@ export default {
 	props: {},
 	data() {
 		return {
-			msg: ''
+			msg: '',
+
+			bottomHeight: 52
 		};
 	},
-	computed: {},
+	computed: {
+		setBottomStyle() {
+			return { height: `${this.bottomHeight < 52 ? 52 : this.bottomHeight}px` };
+		}
+	},
 	watch: {},
 	methods: {
 		typingMessage(e) {
@@ -170,7 +176,9 @@ export default {
 	beforeCreate() {},
 	created() {},
 	beforeMount() {},
-	mounted() {},
+	mounted() {
+		document.addEventListener('input', e => (this.bottomHeight = e.target.scrollHeight));
+	},
 	beforeUpdate() {},
 	updated() {},
 	beforeDestroy() {},
@@ -233,7 +241,6 @@ export default {
 	background-color: #fff;
 	text-align: center;
 	line-height: 3.3;
-	position: fixed;
 	bottom: 0;
 	right: 0;
 	left: 0;
@@ -249,12 +256,14 @@ export default {
 }
 .chat-textarea {
 	width: 100%;
-	height: 25px;
-	padding: 8px 8px;
-	font-size: 15px;
 	border: 1px solid #ababab;
 	border-radius: 15px;
 	max-height: 80px;
+	overflow: scroll;
+	font-size: 15px;
+	line-height: 1.7;
+	height: 40px;
+	padding: 4px;
 }
 .chat-btn-box {
 	width: 15%;

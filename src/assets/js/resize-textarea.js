@@ -7,7 +7,7 @@ export default {
 	},
 	mounted() {
 		this.$nextTick(() => {
-			this.$el.setAttribute('style', 'height:' + this.$el.scrollHeight + 'px;overflow-y:hidden;');
+			// this.$el.setAttribute('style', 'height:' + this.$el.scrollHeight + 'px;overflow-y:scroll;');
 		});
 
 		this.$el.addEventListener('input', this.resizeTextarea);
