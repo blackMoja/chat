@@ -177,7 +177,6 @@ export default {
 	watch: {},
 	methods: {
 		sendMessage() {
-			console.log(this.msg);
 			this.msg = '';
 		},
 		typingMessage(e) {
