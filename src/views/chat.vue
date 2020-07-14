@@ -133,7 +133,15 @@
 		<div class="bottom-container" :style="setBottomStyle">
 			<div class="chat-textarea-box" id="chatBox">
 				<ResizableTextarea>
-					<textarea class="chat-textarea" ref="chatBox" rows="1" :value="msg" @input="typingMessage"></textarea>
+					<textarea
+						class="chat-textarea"
+						ref="chatBox"
+						rows="1"
+						:value="msg"
+						@input="typingMessage"
+						@keypress.enter.prevent
+						@keyup.enter="sendMessage"
+					></textarea>
 				</ResizableTextarea>
 			</div>
 			<div class="chat-btn-box">
@@ -168,6 +176,10 @@ export default {
 	},
 	watch: {},
 	methods: {
+		sendMessage() {
+			console.log(this.msg);
+			this.msg = '';
+		},
 		typingMessage(e) {
 			this.msg = e.target.value;
 		}
