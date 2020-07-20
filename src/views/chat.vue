@@ -1,134 +1,26 @@
 <template>
 	<div class="container">
 		<div class="contents">
-			<!-- send -->
-			<div class="contents-line send">
+			<div v-for="(v, i) in msgList" :key="i" class="contents-line" :class="setMessageClass(v.name)">
 				<p class="contents-member">
-					<!-- <img src="" /> -->
+					<span :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-member`">{{ v.name }}</span>
+				</p>
+				<p class="contents-msg" :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-msg`">{{ v.msg }}</p>
+			</div>
+			<!-- send -->
+			<!-- <div class="contents-line send">
+				<p class="contents-member">
 					<span class="send send-member">임묵창</span>
 				</p>
 				<p class="contents-msg send send-msg">하위염</p>
-			</div>
+			</div> -->
 			<!-- receive -->
-			<div class="contents-line receive">
+			<!-- <div class="contents-line receive">
 				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
+					<span class="receive-member">임묵창</span>
 				</p>
 				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
-			<!-- send -->
-			<div class="contents-line send">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div>
-			<!-- receive -->
-			<div class="contents-line receive">
-				<p class="contents-member">
-					<!-- <img src="" /> -->
-					<span class="receive receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div>
+			</div> -->
 		</div>
 		<div class="bottom-container" :style="setBottomStyle">
 			<div class="chat-textarea-box" id="chatBox">
@@ -152,7 +44,9 @@
 </template>
 
 <script type="text/javascript">
+import io from 'socket.io-client';
 import ResizableTextarea from '@/assets/js/resize-textarea.js';
+
 export default {
 	name: 'chat',
 	components: {
@@ -164,9 +58,11 @@ export default {
 	props: {},
 	data() {
 		return {
+			connect: null,
+			msgList: [],
 			msg: '',
 
-			bottomHeight: 52
+			bottomHeight: 52 // TODO 값 받아오는 걸로 변경하기.
 		};
 	},
 	computed: {
@@ -176,8 +72,23 @@ export default {
 	},
 	watch: {},
 	methods: {
+		connectSocket() {
+			this.connect = io('http://localhost:3000');
+			this.connect.on('chat message', this.receiveMessage);
+		},
 		sendMessage() {
+			if (!this.msg) return;
+
+			this.connect.emit('chat message', JSON.stringify({ name: '임창묵', msg: this.msg }));
 			this.msg = '';
+		},
+
+		setMessageClass(v) {
+			// TODO 여기 send receive 구분은 나중에 로그인 추가하면 변경 예정.
+			return v === '임창묵' ? 'send' : 'receive';
+		},
+		receiveMessage(v) {
+			this.msgList.push(JSON.parse(v));
 		},
 		typingMessage(e) {
 			this.msg = e.target.value;
@@ -185,7 +96,9 @@ export default {
 	},
 
 	beforeCreate() {},
-	created() {},
+	created() {
+		this.connectSocket();
+	},
 	beforeMount() {},
 	mounted() {
 		document.addEventListener('input', e => (this.bottomHeight = e.target.scrollHeight));
@@ -237,10 +150,10 @@ export default {
 	clear: both;
 	float: left;
 }
-.receive-member {
+.receive .receive-member {
 	padding: 3px 0;
 }
-.receive-msg {
+.receive .receive-msg {
 	border: 1px solid rgb(130, 130, 130);
 	background-color: rgb(130, 130, 130);
 	color: #fff;
@@ -280,7 +193,6 @@ export default {
 	width: 15%;
 	float: right;
 }
-
 .chat-btn {
 	line-height: 3.5;
 }

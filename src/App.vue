@@ -6,6 +6,8 @@
 </template>
 
 <script type="text/javascript">
+// import io from 'socket.io-client';
+
 import HeaderComponent from '@/components/header';
 
 export default {
@@ -19,7 +21,7 @@ export default {
 	props: {},
 	data() {
 		return {
-			msg: ''
+			connect: null
 		};
 	},
 	computed: {},
