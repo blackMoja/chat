@@ -1,5 +1,5 @@
 <template>
-	<div class="header-container">
+	<div class="header-container" v-if="isShowHeader">
 		<div class="btn-back">&#60;</div>
 		<div class="room-name">채팅방</div>
 		<div class="etc"></div>
@@ -17,7 +17,11 @@ export default {
 	data() {
 		return {};
 	},
-	computed: {},
+	computed: {
+		isShowHeader() {
+			return this.$route.name !== 'login';
+		}
+	},
 	watch: {},
 	methods: {},
 

@@ -7,20 +7,6 @@
 				</p>
 				<p class="contents-msg" :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-msg`">{{ v.msg }}</p>
 			</div>
-			<!-- send -->
-			<!-- <div class="contents-line send">
-				<p class="contents-member">
-					<span class="send send-member">임묵창</span>
-				</p>
-				<p class="contents-msg send send-msg">하위염</p>
-			</div> -->
-			<!-- receive -->
-			<!-- <div class="contents-line receive">
-				<p class="contents-member">
-					<span class="receive-member">임묵창</span>
-				</p>
-				<p class="contents-msg receive receive-msg">하위염</p>
-			</div> -->
 		</div>
 		<div class="bottom-container" :style="setBottomStyle">
 			<div class="chat-textarea-box" id="chatBox">
