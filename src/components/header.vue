@@ -53,7 +53,6 @@ export default {
 	height: 40px;
 	line-height: 2.5;
 	/* background: rgba(244, 244, 244, 0.7); */
-	background: rgba(244, 244, 244);
 	top: 0;
 	right: 0;
 	left: 0;

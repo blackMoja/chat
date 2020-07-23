@@ -73,7 +73,15 @@ export default {
 }
 .list-container {
 	padding: 0 10px;
+	padding-top: 4px;
 	margin: 10px 0;
+	cursor: pointer;
+}
+.list-container:hover {
+	background-color: #f4f4f4;
+}
+.list-container:active {
+	background-color: #f4f4f4;
 }
 .img-container {
 	display: inline-block;

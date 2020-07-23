@@ -85,6 +85,7 @@ export default {
 <style scoped>
 .container {
 	position: relative;
+	background-color: #f4f4f4;
 }
 .login-container {
 	position: absolute;
