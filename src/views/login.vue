@@ -47,6 +47,7 @@ export default {
 
 		login() {
 			this.saveId(this.id);
+			this.$router.push({ name: 'List' });
 		},
 		doLogin() {
 			this.validate() && this.login();

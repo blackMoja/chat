@@ -1,7 +1,7 @@
 <template>
 	<div class="header-container" v-if="isShowHeader">
-		<div class="btn-back">&#60;</div>
-		<div class="room-name">채팅방</div>
+		<div class="btn-back"><span v-if="isShowBackButton">&#60;</span></div>
+		<div class="room-name">{{ setTitle }}</div>
 		<div class="etc"></div>
 	</div>
 </template>
@@ -19,7 +19,17 @@ export default {
 	},
 	computed: {
 		isShowHeader() {
-			return this.$route.name !== 'login';
+			return this.$route.name !== 'Login';
+		},
+		isShowBackButton() {
+			return this.$route.name === 'Chat';
+		},
+		setTitle() {
+			const m = {
+				List: '채팅방',
+				Chat: '상대방 이름'
+			};
+			return m[this.$route.name];
 		}
 	},
 	watch: {},
@@ -42,7 +52,8 @@ export default {
 	width: 100%;
 	height: 40px;
 	line-height: 2.5;
-	background: rgba(244, 244, 244, 0.7);
+	/* background: rgba(244, 244, 244, 0.7); */
+	background: rgba(244, 244, 244);
 	top: 0;
 	right: 0;
 	left: 0;
