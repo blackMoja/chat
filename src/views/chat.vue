@@ -30,6 +30,7 @@
 </template>
 
 <script type="text/javascript">
+import { mapGetters, mapMutations } from 'vuex';
 import io from 'socket.io-client';
 import ResizableTextarea from '@/assets/js/resize-textarea.js';
 
@@ -52,6 +53,10 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters({
+			id: 'login/checkId',
+			msg: 'socket/msg'
+		}),
 		setBottomStyle() {
 			return { height: `${this.bottomHeight < 52 ? 52 : this.bottomHeight}px` };
 		}
@@ -65,13 +70,12 @@ export default {
 		sendMessage() {
 			if (!this.msg) return;
 
-			this.connect.emit('chat message', JSON.stringify({ name: '임창묵', msg: this.msg }));
+			this.connect.emit('chat message', JSON.stringify({ name: this.id, msg: this.msg }));
 			this.msg = '';
 		},
 
 		setMessageClass(v) {
-			// TODO 여기 send receive 구분은 나중에 로그인 추가하면 변경 예정.
-			return v === '임창묵' ? 'send' : 'receive';
+			return v === this.id ? 'send' : 'receive';
 		},
 		receiveMessage(v) {
 			this.msgList.push(JSON.parse(v));

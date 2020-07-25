@@ -5,7 +5,7 @@
 				<img src="@/assets/images/dump.jpeg" alt="dump" class="img-view" />
 			</div>
 			<div class="info-container">
-				<p class="info-name">채팅방 이름</p>
+				<p class="info-name">자유 채팅방</p>
 				<p class="info-contents">마지막내용</p>
 			</div>
 			<div class="time-container">
@@ -17,19 +17,7 @@
 				<img src="@/assets/images/dump.jpeg" alt="dump" class="img-view" />
 			</div>
 			<div class="info-container">
-				<p class="info-name">채팅방 이름</p>
-				<p class="info-contents">마지막내용</p>
-			</div>
-			<div class="time-container">
-				<p class="time">14:00</p>
-			</div>
-		</div>
-		<div class="list-container">
-			<div class="img-container">
-				<img src="@/assets/images/dump.jpeg" alt="dump" class="img-view" />
-			</div>
-			<div class="info-container">
-				<p class="info-name">채팅방 이름</p>
+				<p class="info-name">자유 채팅방2</p>
 				<p class="info-contents">마지막내용</p>
 			</div>
 			<div class="time-container">
@@ -108,6 +96,6 @@ export default {
 }
 .time {
 	font-size: 12px;
-	padding-right: 20px;
+	/* padding-right: 20px; */
 }
 </style>
