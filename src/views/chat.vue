@@ -15,7 +15,7 @@
 						class="chat-textarea"
 						ref="chatBox"
 						rows="1"
-						:value="msg"
+						:value="send"
 						@input="typingMessage"
 						@keypress.enter.prevent
 						@keyup.enter="sendMessage"
@@ -23,7 +23,7 @@
 				</ResizableTextarea>
 			</div>
 			<div class="chat-btn-box">
-				<a href="#" class="chat-btn" @click.prevent>&#8629;</a>
+				<a href="#" class="chat-btn" @click.prevent="sendMessage">&#8629;</a>
 			</div>
 		</div>
 	</div>
@@ -32,6 +32,7 @@
 <script type="text/javascript">
 import { mapGetters, mapMutations } from 'vuex';
 import io from 'socket.io-client';
+
 import ResizableTextarea from '@/assets/js/resize-textarea.js';
 
 export default {
@@ -47,7 +48,7 @@ export default {
 		return {
 			connect: null,
 			msgList: [],
-			msg: '',
+			send: '',
 
 			bottomHeight: 52 // TODO 값 받아오는 걸로 변경하기.
 		};
@@ -63,15 +64,19 @@ export default {
 	},
 	watch: {},
 	methods: {
-		connectSocket() {
-			this.connect = io('http://localhost:3000');
-			this.connect.on('chat message', this.receiveMessage);
+		enterChatRoom() {
+			this.connect = io.connect(`http://172.20.10.3:3000/${this.$route.params.room}`);
+
+			this.connect.emit('welcome', JSON.stringify({ name: this.id }));
+
+			this.connect.on('chat', this.receiveMessage);
+			this.connect.on('welcome', this.receiveMessage);
 		},
 		sendMessage() {
-			if (!this.msg) return;
+			if (!this.send) return;
 
-			this.connect.emit('chat message', JSON.stringify({ name: this.id, msg: this.msg }));
-			this.msg = '';
+			this.connect.emit('chat', JSON.stringify({ name: this.id, msg: this.send }));
+			this.send = '';
 		},
 
 		setMessageClass(v) {
@@ -81,13 +86,13 @@ export default {
 			this.msgList.push(JSON.parse(v));
 		},
 		typingMessage(e) {
-			this.msg = e.target.value;
+			this.send = e.target.value;
 		}
 	},
 
 	beforeCreate() {},
 	created() {
-		this.connectSocket();
+		this.enterChatRoom();
 	},
 	beforeMount() {},
 	mounted() {

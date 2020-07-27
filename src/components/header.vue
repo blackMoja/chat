@@ -1,6 +1,6 @@
 <template>
 	<div class="header-container" v-if="isShowHeader">
-		<div class="btn-back"><span v-if="isShowBackButton">&#60;</span></div>
+		<div class="btn-back" @click.prevent="moveBack"><span v-if="isShowBackButton">&#60;</span></div>
 		<div class="room-name">{{ setTitle }}</div>
 		<div class="etc"></div>
 	</div>
@@ -33,7 +33,9 @@ export default {
 		}
 	},
 	watch: {},
-	methods: {},
+	methods: {
+		moveBack() {}
+	},
 
 	beforeCreate() {},
 	created() {},

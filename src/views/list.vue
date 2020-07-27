@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div class="list-container">
+		<div class="list-container" id="all_1" @click.prevent="enterChatRoom">
 			<div class="img-container">
 				<img src="@/assets/images/dump.jpeg" alt="dump" class="img-view" />
 			</div>
@@ -12,7 +12,7 @@
 				<p class="time">14:00</p>
 			</div>
 		</div>
-		<div class="list-container">
+		<div class="list-container" id="all_2" @click.prevent="enterChatRoom">
 			<div class="img-container">
 				<img src="@/assets/images/dump.jpeg" alt="dump" class="img-view" />
 			</div>
@@ -40,7 +40,13 @@ export default {
 	},
 	computed: {},
 	watch: {},
-	methods: {},
+	methods: {
+		enterChatRoom(e) {
+			if (!e.target.id) return;
+
+			this.$router.push({ name: 'Chat', params: { room: e.target.id } });
+		}
+	},
 
 	beforeCreate() {},
 	created() {},

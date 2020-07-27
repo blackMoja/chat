@@ -21,7 +21,7 @@ const routes = [
 		meta: { login: true }
 	},
 	{
-		path: '/chat',
+		path: '/chat/:room',
 		name: 'Chat',
 		component: Chat,
 		meta: { login: true }
