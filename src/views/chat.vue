@@ -2,10 +2,12 @@
 	<div class="container">
 		<div class="contents">
 			<div v-for="(v, i) in msgList" :key="i" class="contents-line" :class="setMessageClass(v.name)">
-				<p class="contents-member">
-					<span :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-member`">{{ v.name }}</span>
-				</p>
-				<p class="contents-msg" :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-msg`">{{ v.msg }}</p>
+				<div>
+					<p class="contents-member">
+						<span :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-member`">{{ v.name }}</span>
+					</p>
+					<p class="contents-msg" :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-msg`">{{ v.msg }}</p>
+				</div>
 			</div>
 		</div>
 		<div class="bottom-container" :style="setBottomStyle">
@@ -55,8 +57,7 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			id: 'login/checkId',
-			msg: 'socket/msg'
+			id: 'login/checkId'
 		}),
 		setBottomStyle() {
 			return { height: `${this.bottomHeight < 52 ? 52 : this.bottomHeight}px` };
@@ -65,9 +66,10 @@ export default {
 	watch: {},
 	methods: {
 		enterChatRoom() {
+			// this.connect = io.connect(`http://192.168.0.7:3000/${this.$route.params.room}`);
 			this.connect = io.connect(`http://172.20.10.3:3000/${this.$route.params.room}`);
 
-			this.connect.emit('welcome', JSON.stringify({ name: this.id }));
+			this.connect.emit('welcome', JSON.stringify({ type: 'ALL', name: this.id }));
 
 			this.connect.on('chat', this.receiveMessage);
 			this.connect.on('welcome', this.receiveMessage);
@@ -75,8 +77,14 @@ export default {
 		sendMessage() {
 			if (!this.send) return;
 
-			this.connect.emit('chat', JSON.stringify({ name: this.id, msg: this.send }));
+			this.connect.emit('chat', JSON.stringify({ type: 'MESSAGE', name: this.id, msg: this.send }));
 			this.send = '';
+		},
+
+		moveBottom() {
+			const el = document.querySelector('.contents');
+
+			this.$nextTick(() => el.scrollTo(0, el.scrollHeight));
 		},
 
 		setMessageClass(v) {
@@ -84,6 +92,7 @@ export default {
 		},
 		receiveMessage(v) {
 			this.msgList.push(JSON.parse(v));
+			this.moveBottom();
 		},
 		typingMessage(e) {
 			this.send = e.target.value;
