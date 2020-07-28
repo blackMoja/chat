@@ -1,13 +1,18 @@
 <template>
 	<div class="container">
 		<div class="contents">
-			<div v-for="(v, i) in msgList" :key="i" class="contents-line" :class="setMessageClass(v.name)">
-				<div>
+			<!--  class="contents-line"  -->
+			<div v-for="(v, i) in msgList" :key="i" :class="[distinguishType(v.type), setMessageClass(v.name)]">
+				<!-- TODO type 보고 구분 필요함. -->
+				<template v-if="v.type === 'MESSAGE'">
 					<p class="contents-member">
 						<span :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-member`">{{ v.name }}</span>
 					</p>
 					<p class="contents-msg" :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-msg`">{{ v.msg }}</p>
-				</div>
+				</template>
+				<template v-else>
+					<p class="notice">{{ v.msg }}</p>
+				</template>
 			</div>
 		</div>
 		<div class="bottom-container" :style="setBottomStyle">
@@ -67,7 +72,8 @@ export default {
 	methods: {
 		enterChatRoom() {
 			// this.connect = io.connect(`http://192.168.0.7:3000/${this.$route.params.room}`);
-			this.connect = io.connect(`http://172.20.10.3:3000/${this.$route.params.room}`);
+			// this.connect = io.connect(`http://172.20.10.3:3000/${this.$route.params.room}`);
+			this.connect = io.connect(`http://172.30.1.6:3000/${this.$route.params.room}`);
 
 			this.connect.emit('welcome', JSON.stringify({ type: 'ALL', name: this.id }));
 
@@ -83,12 +89,18 @@ export default {
 
 		moveBottom() {
 			const el = document.querySelector('.contents');
-
 			this.$nextTick(() => el.scrollTo(0, el.scrollHeight));
 		},
 
 		setMessageClass(v) {
 			return v === this.id ? 'send' : 'receive';
+		},
+		distinguishType(k) {
+			const m = {
+				MESSAGE: 'contents-line',
+				NOTICE: 'notice-line'
+			};
+			return m[k];
 		},
 		receiveMessage(v) {
 			this.msgList.push(JSON.parse(v));
@@ -125,10 +137,15 @@ export default {
 	padding: 10px;
 	padding-top: 40px;
 	overflow: scroll;
+	background-color: #f4f4f4;
 }
 .contents-line {
 	width: 100%;
-	height: 50px;
+	height: 52px;
+}
+.notice-line {
+	width: 100%;
+	height: 25px;
 }
 .contents-member {
 	font-size: 13px;
@@ -149,6 +166,8 @@ export default {
 	border: 1px solid rgb(0, 123, 255);
 	background-color: rgb(0, 123, 255);
 	color: #fff;
+	font-size: 14px;
+	padding: 5px;
 }
 .receive {
 	clear: both;
@@ -161,6 +180,8 @@ export default {
 	border: 1px solid rgb(130, 130, 130);
 	background-color: rgb(130, 130, 130);
 	color: #fff;
+	font-size: 14px;
+	padding: 5px;
 }
 .bottom-container {
 	padding: 0 0 0 10px;
@@ -199,5 +220,10 @@ export default {
 }
 .chat-btn {
 	line-height: 3.5;
+}
+.notice {
+	text-align: center;
+	font-size: 13px;
+	line-height: 2;
 }
 </style>
