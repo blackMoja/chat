@@ -1,9 +1,7 @@
 <template>
 	<div class="container">
 		<div class="contents">
-			<!--  class="contents-line"  -->
 			<div v-for="(v, i) in msgList" :key="i" :class="[distinguishType(v.type), setMessageClass(v.name)]">
-				<!-- TODO type 보고 구분 필요함. -->
 				<template v-if="v.type === 'MESSAGE'">
 					<p class="contents-member">
 						<span :class="`${setMessageClass(v.name)} ${setMessageClass(v.name)}-member`">{{ v.name }}</span>
@@ -71,9 +69,7 @@ export default {
 	watch: {},
 	methods: {
 		enterChatRoom() {
-			// this.connect = io.connect(`http://192.168.0.7:3000/${this.$route.params.room}`);
-			// this.connect = io.connect(`http://172.20.10.3:3000/${this.$route.params.room}`);
-			this.connect = io.connect(`http://172.30.1.6:3000/${this.$route.params.room}`);
+			this.connect = io.connect(`http://172.30.1.39:3000/${this.$route.params.room}`);
 
 			this.connect.emit('welcome', JSON.stringify({ type: 'ALL', name: this.id }));
 
@@ -85,6 +81,10 @@ export default {
 
 			this.connect.emit('chat', JSON.stringify({ type: 'MESSAGE', name: this.id, msg: this.send }));
 			this.send = '';
+
+			// TODO[개발] textarea 컴포넌트 개발하기
+			this.bottomHeight = 52;
+			document.querySelector('textarea').style.height = '40px';
 		},
 
 		moveBottom() {
